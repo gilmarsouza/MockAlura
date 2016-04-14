@@ -1,0 +1,20 @@
+C:\Users\renan\documents\visual studio 2013\Projects\mock\mock\obj\Debug\mock.csprojResolveAssemblyReference.cache
+C:\Users\renan\documents\visual studio 2013\Projects\mock\mock\bin\Debug\mock.dll.config
+C:\Users\renan\documents\visual studio 2013\Projects\mock\mock\bin\Debug\mock.dll
+C:\Users\renan\documents\visual studio 2013\Projects\mock\mock\bin\Debug\mock.pdb
+C:\Users\renan\documents\visual studio 2013\Projects\mock\mock\bin\Debug\Moq.dll
+C:\Users\renan\documents\visual studio 2013\Projects\mock\mock\bin\Debug\nunit.framework.dll
+C:\Users\renan\documents\visual studio 2013\Projects\mock\mock\bin\Debug\Moq.xml
+C:\Users\renan\documents\visual studio 2013\Projects\mock\mock\bin\Debug\nunit.framework.xml
+C:\Users\renan\documents\visual studio 2013\Projects\mock\mock\obj\Debug\mock.dll
+C:\Users\renan\documents\visual studio 2013\Projects\mock\mock\obj\Debug\mock.pdb
+C:\Users\tiogi\Documents\Projetos\LeilaoMock\mock\bin\Debug\mock.dll.config
+C:\Users\tiogi\Documents\Projetos\LeilaoMock\mock\bin\Debug\mock.dll
+C:\Users\tiogi\Documents\Projetos\LeilaoMock\mock\bin\Debug\mock.pdb
+C:\Users\tiogi\Documents\Projetos\LeilaoMock\mock\bin\Debug\Moq.dll
+C:\Users\tiogi\Documents\Projetos\LeilaoMock\mock\bin\Debug\Moq.xml
+C:\Users\tiogi\Documents\Projetos\LeilaoMock\mock\bin\Debug\nunit.framework.xml
+C:\Users\tiogi\Documents\Projetos\LeilaoMock\mock\obj\Debug\mock.csprojResolveAssemblyReference.cache
+C:\Users\tiogi\Documents\Projetos\LeilaoMock\mock\obj\Debug\mock.dll
+C:\Users\tiogi\Documents\Projetos\LeilaoMock\mock\obj\Debug\mock.pdb
+C:\Users\tiogi\Documents\Projetos\LeilaoMock\mock\bin\Debug\nunit.framework.dll
