@@ -11,20 +11,22 @@ namespace mock.servico
 {
     public class EncerradorDeLeilao
     {
-        private IRepositorioDeLeiloes dao;
-
         public int total { get; private set; }
+        private IRepositorioDeLeiloes dao;
+        private Carteiro carteiro;
 
 
-        public EncerradorDeLeilao(IRepositorioDeLeiloes dao)
+        public EncerradorDeLeilao(IRepositorioDeLeiloes dao, Carteiro carteiro)
         {
             this.dao = dao;
+            this.carteiro = carteiro;
             total = 0;
         }
 
         public virtual void encerra()
         {
             List<Leilao> todosLeiloesCorrentes = dao.correntes();
+            Console.WriteLine(todosLeiloesCorrentes.Count);
 
             foreach (var l in todosLeiloesCorrentes)
             {
@@ -35,7 +37,7 @@ namespace mock.servico
                     l.encerra();
                     total++;
                     dao.atualiza(l);
-
+                    carteiro.envia(l);
                 }
             }
         }

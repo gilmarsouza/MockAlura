@@ -31,9 +31,10 @@ namespace mock.testes
 
             //criando mock
             var dao = new Mock<IRepositorioDeLeiloes>();
+            var carteiro = new Mock<Carteiro>();
             dao.Setup(m => m.correntes()).Returns(listaLeiloes);
 
-            var encerrador = new EncerradorDeLeilao(dao.Object);
+            var encerrador = new EncerradorDeLeilao(dao.Object, carteiro.Object);
             encerrador.encerra();
 
             Assert.AreEqual(2, listaLeiloes.Count);
@@ -57,9 +58,10 @@ namespace mock.testes
 
             //criando mock
             var dao = new Mock<IRepositorioDeLeiloes>();
+            var carteiro = new Mock<Carteiro>();
             dao.Setup(m => m.correntes()).Returns(listaLeiloes);
 
-            var encerrador = new EncerradorDeLeilao(dao.Object);
+            var encerrador = new EncerradorDeLeilao(dao.Object, carteiro.Object);
             encerrador.encerra();
 
             Assert.AreEqual(2, listaLeiloes.Count);
@@ -71,12 +73,55 @@ namespace mock.testes
         public void Nao_Deve_Encerrar_Nada()
         {
             var dao = new Mock<IRepositorioDeLeiloes>();
+            var carteiro = new Mock<Carteiro>();
             dao.Setup(m => m.correntes()).Returns(new List<Leilao>());
 
-            var encerrador = new EncerradorDeLeilao(dao.Object);
+            var encerrador = new EncerradorDeLeilao(dao.Object, carteiro.Object);
             encerrador.encerra();
 
             Assert.AreEqual(0, encerrador.total);
+        }
+
+        [Test]
+        public void Deve_Verificar_Se_O_Metodo_Atualiza_Foi_Executado()
+        {
+            var data = DateTime.Today.AddDays(-7);
+            var listaLeiloes = new List<Leilao>();
+
+            var leilao = new Leilao("Playstation 4");
+            leilao.naData(data);
+
+            listaLeiloes.Add(leilao);
+
+            var dao = new Mock<LeilaoDaoFalso>();
+            var carteiro = new Mock<Carteiro>();
+            dao.Setup(m => m.correntes()).Returns(listaLeiloes);
+
+            var encerrador = new EncerradorDeLeilao(dao.Object, carteiro.Object);
+            encerrador.encerra();
+
+            dao.Verify(m => m.atualiza(leilao), Times.Once);
+        }
+
+        [Test]
+        public void NaoDeveAtualizaOsLeiloesEncerrados()
+        {
+            DateTime data = DateTime.Today;
+
+            Leilao leilao1 = new Leilao("Tv 20 polegadas");
+            leilao1.naData(data);
+
+            List<Leilao> listaRetorno = new List<Leilao>();
+            listaRetorno.Add(leilao1);
+
+            var dao = new Mock<LeilaoDaoFalso>();
+            var carteiro = new Mock<Carteiro>();
+            dao.Setup(m => m.correntes()).Returns(listaRetorno);
+
+            var encerrador = new EncerradorDeLeilao(dao.Object, carteiro.Object);
+            encerrador.encerra();
+
+            dao.Verify(m => m.atualiza(leilao1), Times.Never());
         }
     }
 }
