@@ -30,15 +30,22 @@ namespace mock.servico
 
             foreach (var l in todosLeiloesCorrentes)
             {
-
-                if (comecouSemanaPassada(l))
+                try
                 {
+                    if (comecouSemanaPassada(l))
+                    {
 
-                    l.encerra();
-                    total++;
-                    dao.atualiza(l);
-                    carteiro.envia(l);
+                        l.encerra();
+                        total++;
+                        dao.atualiza(l);
+                        carteiro.envia(l);
+                    }
                 }
+                catch (Exception e)
+                {
+                    //Salva um Log
+                }
+
             }
         }
 

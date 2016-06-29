@@ -123,5 +123,90 @@ namespace mock.testes
 
             dao.Verify(m => m.atualiza(leilao1), Times.Never());
         }
+
+        [Test]
+        public void Deve_Continuar_A_Executar_Mesmo_Quando_O_Dao_Falha()
+        {
+            var data = DateTime.Today.AddDays(-7);
+            var listaLeiloes = new List<Leilao>();
+
+            var leilao1 = new Leilao("Playstation 4 Neo");
+            leilao1.naData(data);
+
+            var leilao2 = new Leilao("Xbox One S");
+            leilao2.naData(data);
+
+            listaLeiloes.Add(leilao1);
+            listaLeiloes.Add(leilao2);
+
+            var dao = new Mock<LeilaoDaoFalso>();
+            var carteiro = new Mock<Carteiro>();
+
+            dao.Setup(m => m.correntes()).Returns(listaLeiloes);
+            dao.Setup(m => m.atualiza(leilao1)).Throws(new Exception());
+
+            var encerrador = new EncerradorDeLeilao(dao.Object, carteiro.Object);
+            encerrador.encerra();
+
+            dao.Verify(m => m.atualiza(leilao2), Times.Once);
+            carteiro.Verify(c => c.envia(leilao1), Times.Never());
+        }
+
+        [Test]
+        public void Deve_Continuar_A_Executar_Mesmo_Quando_O_Carteiro_Falha()
+        {
+            var data = DateTime.Today.AddDays(-7);
+            var listaLeiloes = new List<Leilao>();
+
+            var leilao1 = new Leilao("Playstation 4 Neo");
+            leilao1.naData(data);
+
+            var leilao2 = new Leilao("Xbox One S");
+            leilao2.naData(data);
+
+            listaLeiloes.Add(leilao1);
+            listaLeiloes.Add(leilao2);
+
+            var dao = new Mock<LeilaoDaoFalso>();
+            var carteiro = new Mock<Carteiro>();
+
+            dao.Setup(m => m.correntes()).Returns(listaLeiloes);
+            carteiro.Setup(m => m.envia(leilao1)).Throws(new Exception());
+
+            var encerrador = new EncerradorDeLeilao(dao.Object, carteiro.Object);
+            encerrador.encerra();
+
+            dao.Verify(m => m.atualiza(leilao2), Times.Once);
+            carteiro.Verify(c => c.envia(leilao2), Times.Once());
+        }
+
+        [Test]
+        public void Nao_Deve_invocar_o_carteiro_nenhuma_vez_pois_todos_os_leiloes_lancarao_exceptions()
+        {
+            var data = DateTime.Today.AddDays(-7);
+            var listaLeiloes = new List<Leilao>();
+
+            var leilao1 = new Leilao("Playstation 4 Neo");
+            leilao1.naData(data);
+
+            var leilao2 = new Leilao("Xbox One S");
+            leilao2.naData(data);
+
+            listaLeiloes.Add(leilao1);
+            listaLeiloes.Add(leilao2);
+
+            var dao = new Mock<LeilaoDaoFalso>();
+            var carteiro = new Mock<Carteiro>();
+
+            dao.Setup(m => m.correntes()).Returns(listaLeiloes);
+            dao.Setup(m => m.atualiza(leilao1)).Throws(new Exception());
+            dao.Setup(m => m.atualiza(leilao2)).Throws(new Exception());
+
+            var encerrador = new EncerradorDeLeilao(dao.Object, carteiro.Object);
+            encerrador.encerra();
+
+            carteiro.Verify(c => c.envia(It.IsAny<Leilao>()), Times.Never());
+        }
+
     }
 }
