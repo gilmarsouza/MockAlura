@@ -56,13 +56,16 @@
     <Compile Include="dominio\Pagamento.cs" />
     <Compile Include="dominio\Usuario.cs" />
     <Compile Include="infra\LeilaoDaoFalso.cs" />
+    <Compile Include="infra\PagamentoDao.cs" />
     <Compile Include="interfaces\IRepositorioDeLeiloes.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="servico\Avaliador.cs" />
     <Compile Include="servico\Carteiro.cs" />
     <Compile Include="servico\EncerradorDeLeilao.cs" />
+    <Compile Include="servico\GeradorDePagamento.cs" />
     <Compile Include="testes\EncerradorDeLeilaoTest.cs" />
+    <Compile Include="testes\GeradorDePagamentoTeste.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
