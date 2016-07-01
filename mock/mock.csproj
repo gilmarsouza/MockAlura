@@ -55,8 +55,10 @@
     <Compile Include="dominio\Leilao.cs" />
     <Compile Include="dominio\Pagamento.cs" />
     <Compile Include="dominio\Usuario.cs" />
+    <Compile Include="infra\IRelogio.cs" />
     <Compile Include="infra\LeilaoDaoFalso.cs" />
     <Compile Include="infra\PagamentoDao.cs" />
+    <Compile Include="infra\RelogioDoSistema.cs" />
     <Compile Include="interfaces\IRepositorioDeLeiloes.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
